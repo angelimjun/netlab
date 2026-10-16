@@ -59,6 +59,7 @@ def check(spec):
     problems = [] 
     seen = {}
 
+     # Check 1: Detect duplicate IPv4 and IPv6 addresses
     for host in spec["hosts"]:
         for key in("ip", "ipv6"):
             if key not in host:
@@ -72,6 +73,19 @@ def check(spec):
                 )
             else:
                 seen[address] = host["name"]
+                
+     # Check 2: Detect links to nodes that do not exist
+    valid_nodes = set(spec["switches"])
+
+    for host in spec["hosts"]:
+        valid_nodes.add(host["name"])
+
+    for link in spec["links"]:
+        for node in link:
+            if node not in valid_nodes:
+                problems.append(
+                    f"link refers to unknown node {node}"
+                )
 
     return problems
 
