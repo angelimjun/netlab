@@ -1,0 +1,42 @@
+# page.yaml: the words on your page, kept as data like everything else.
+# make_page.py puts each answer under its question. A few sentences each, in your own words;
+# leave a blank line between paragraphs. Refer to YOUR network and YOUR evidence.
+# Never put your name or full student ID here: the page is public.
+
+repository: https://github.com/angelimjun/netlab
+
+answers:
+  planes:
+    question: "Where are the data, control and management planes in your network?"
+    answer: >
+       Data plane is where packets are forwarded from one host to another through switches. Control plane decides how the packets should be forwarded. Management plane is where I configure and monitor the network using CLI and Python scripts.
+
+  learning:
+    question: "How did your switches learn which port leads to each host? Use your MAC table evidence."
+    answer: >
+       My switches learn MAC addresses from incoming frames and store them in the MAC address table. They remember which port each MAC address comes from. In macs.txt, I can see the MAC addresses learned by switch s1.
+
+  kind:
+    question: "Which of the four kinds of programmability is this assignment (a network described as data, then built and documented by scripts)? Why isn't it any of the other three?"
+    answer: >
+       Automated configuration management because Python scripts build the network based on topology.yaml. It doesn't change how packets are forwarded, use an external controller or program the network devices through an API.
+
+  two_am:
+    question: "Week 1's 2 a.m. change on 40 switches: what would be different if those switches were described like your network?"
+    answer: >
+       Configuration can be done faster because the same configuration can be applied automatically to all 40 switches. This also reduces manual work and lowers the chance of human errors.
+
+  model:
+    question: "What's the difference between your network's data model and its serialisation? Use YAML and JSON as the example."
+    answer: >
+       Data model defines the network information while serialisation is how the data is written into a file. YAML and JSON are different formats that can represent the same network data.
+
+  check:
+    question: "Why is it better to catch bad data in check() than with pingall? What did IPv6 notice about a duplicate address that IPv4 didn't?"
+    answer: >
+       It is better to use check() because it can detect configuration errors before building the network. My check() detected duplicate IPv4 and IPv6 addresses and a link to an unknown switch. IPv6 detected the duplicate address and showed dadfailed, while IPv4 accepted the duplicate address without the same warning.
+
+  git:
+    question: "What does your Git history give you that copying files into folders named topology-v2-final wouldn't?"
+    answer: >
+       Git records the history of changes made to my project. I can review, compare different versions and restore an older version if something goes wrong. It is easier to manage.
