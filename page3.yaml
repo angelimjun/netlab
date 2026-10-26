@@ -1,0 +1,34 @@
+
+# page3.yaml: the words on your Week 3 page.
+# Never put your name or full student ID here.
+
+repository: https://github.com/angelimjun/netlab
+
+answers:
+  design:
+    question: "Describe your design: why these routers, LANs and links, and how you chose the addresses."
+    answer: |
+      I designed a network with 4 routers and 4 LANs. Each router connects to one LAN with one host. The routers are connected in a ring, so there are two possible physical paths between some routers.
+
+      I used the 10.62.x.x address range based on the last two digits of my student ID. Each LAN uses a /24 network, while the links between routers use /30 networks to avoid wasting IP addresses.
+
+  summary:
+    question: "Which route summarises several LANs? Which networks does it cover, why is it correct, and what else would it attract if you added a network inside its range?"
+    answer: |
+      I used the summary route 10.62.32.0/23 on r1 and r2. It covers both 10.62.32.0/24 for h3 and 10.62.33.0/24 for h4.
+
+      This works because both LANs are inside the /23 address range. My evidence shows that r1 sends traffic to both hosts through the same next hop, 10.62.14.1. If I added another subnet inside this range, the summary route would also match its addresses, unless a more specific route was available.
+
+  failure:
+    question: "When you took a link down, what happened, and why couldn't your routes recover even though another path existed? What would have recovered?"
+    answer: |
+      I disabled the link between r1 and r4 and tested the connection from h1 to h3. The traceroute failed and showed Network Unreachable.
+
+      Although there was another physical path through r2, the static routes could not automatically switch to it. After restoring the link, I also had to add the missing static route again. A dynamic routing protocol such as OSPF could detect the failure and calculate another path automatically.
+
+  control_plane:
+    question: "In your network, what was the control plane? Who worked out the routes, and what does that mean for a network of 40 routers?"
+    answer: |
+      In my network, I worked out the routes manually and configured them in network.yaml. The script then installed these static routes on the routers. There was no routing protocol calculating the paths automatically.
+
+      For a network with 40 routers, manual routing would take more time and become difficult to manage. It would also be easier to make mistakes. Using a dynamic routing protocol would help routers update their routes when the network changes.
